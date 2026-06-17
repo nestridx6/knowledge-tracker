@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #f0f0f5;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #12121a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333355;
+  border-radius: 2px;
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-bg-card/80 backdrop-blur-xl border border-white/5;
+  }
+
+  .glass-hover {
+    @apply hover:bg-bg-hover/80 transition-colors duration-200;
+  }
+
+  .glow-finance { box-shadow: 0 0 20px rgba(16, 185, 129, 0.15); }
+  .glow-politics { box-shadow: 0 0 20px rgba(239, 68, 68, 0.15); }
+  .glow-geography { box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
+  .glow-mindset { box-shadow: 0 0 20px rgba(168, 85, 247, 0.15); }
+  .glow-islam { box-shadow: 0 0 20px rgba(245, 158, 11, 0.15); }
+  .glow-books { box-shadow: 0 0 20px rgba(236, 72, 153, 0.15); }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(0.95); opacity: 1; }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
