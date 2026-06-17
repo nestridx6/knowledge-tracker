@@ -80,7 +80,7 @@ export function Flashcards({ cards, onComplete }: FlashcardsProps) {
             className="flex-1 border-red-400/30 text-red-400"
             size="lg"
           >
-            Didn't know it
+            Didn&apos;t know it
           </Button>
           <Button
             onClick={() => handleScore(true)}
