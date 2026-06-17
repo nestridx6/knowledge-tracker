@@ -93,13 +93,7 @@ export default function SessionPage() {
           xp_earned: xp,
         })
         .eq("id", currentModule.id),
-      supabase.rpc("increment_pillar_xp", {
-        p_user_id: user!.id,
-        p_pillar: currentModule.pillar,
-        p_amount: xp,
-      }).then(() => {
-        // fallback: direct update if RPC doesn't exist
-      }).catch(async () => {
+      (async () => {
         const { data: existing } = await supabase
           .from("pillar_xp")
           .select("xp")
@@ -114,7 +108,7 @@ export default function SessionPage() {
             .eq("user_id", user!.id)
             .eq("pillar", currentModule.pillar);
         }
-      }),
+      })(),
     ]);
 
     // Auto-add book to reading list if this is the books module
