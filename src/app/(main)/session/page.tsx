@@ -139,29 +139,27 @@ export default function SessionPage() {
     if (newCompleted >= 6) {
       // Update streak
       const today = new Date().toISOString().split("T")[0];
-      const { data: profile } = await supabase
+      const { data: profileData } = await supabase
         .from("profiles")
-        .select("streak_count, longest_streak, last_session_date")
+        .select("streak_count, longest_streak, last_session_date, total_sessions")
         .eq("id", user!.id)
         .single();
 
-      if (profile) {
+      if (profileData) {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         const yesterdayStr = yesterday.toISOString().split("T")[0];
 
-        const isConsecutive = profile.last_session_date === yesterdayStr;
-        const newStreak = isConsecutive ? profile.streak_count + 1 : 1;
+        const isConsecutive = profileData.last_session_date === yesterdayStr;
+        const newStreak = isConsecutive ? profileData.streak_count + 1 : 1;
 
         await supabase
           .from("profiles")
           .update({
             streak_count: newStreak,
-            longest_streak: Math.max(newStreak, profile.longest_streak),
+            longest_streak: Math.max(newStreak, profileData.longest_streak),
             last_session_date: today,
-            total_sessions: (profile as { total_sessions?: number }).total_sessions
-              ? ((profile as { total_sessions: number }).total_sessions + 1)
-              : 1,
+            total_sessions: (profileData.total_sessions || 0) + 1,
           })
           .eq("id", user!.id);
       }
